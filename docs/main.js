@@ -1,0 +1,7 @@
+import '/components/code.js'
+import '/components/spa.js'
+import '/components/story.js'
+import '/docs/components/counter.js'
+import '/docs/components/currency.js'
+import '/docs/components/i18n.js'
+import '/docs/components/nav.js'
