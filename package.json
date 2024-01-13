@@ -1,15 +1,10 @@
 {
-	"name": "cuick",
+	"name": "cuick-dev",
 	"version": "1.0.0",
-	"description": "",
+	"type": "module",
 	"main": "index.js",
 	"module": "index.js",
-	"directories": {
-		"doc": "docs"
-	},
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
+	"description": "Create fast, self-documenting components that work anywhere, without any tooling.",
 	"author": "James Lovallo",
 	"license": "ISC"
 }
