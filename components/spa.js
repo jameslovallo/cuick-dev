@@ -1,4 +1,4 @@
-import { create, html } from '../index.js'
+import { create, css, html } from '../index.js'
 
 create('spa', {
 	path: '/',
@@ -19,17 +19,27 @@ create('spa', {
 
 create('c-spa-link', {
 	_spa: 'c-spa',
-	setup({ _spa }) {
-		const link = this.firstElementChild
-		link.addEventListener('click', (e) => {
-			e.preventDefault()
-			const { pathname } = link
-			if (pathname.startsWith('/')) {
-				_spa.path = pathname
-			}
-		})
+	href: '/',
+	template({ _spa, href }) {
+		return html`
+			<a
+				href=${href}
+				@click=${(e) => {
+					e.preventDefault()
+					_spa.path = href
+				}}
+			>
+				<slot />
+			</a>
+		`
 	},
-	template() {
-		return html`<slot />`
-	},
+	styles: css`
+		:host {
+			width: max-content;
+		}
+		a {
+			color: inherit;
+			text-decoration: none;
+		}
+	`,
 })
