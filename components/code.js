@@ -1,5 +1,5 @@
-import { highlightElement } from 'https://cdn.skypack.dev/prismjs@1.29.0'
-import { create } from '//unpkg.com/cuick-dev@latest'
+import { create } from '../index.js'
+import { highlightElement } from '//cdn.skypack.dev/prismjs@1.29.0'
 
 const css = (t) =>
 	[
