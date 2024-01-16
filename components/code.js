@@ -1,48 +1,32 @@
-import { parse } from 'https://cdn.jsdelivr.net/npm/marked/+esm'
-import { highlightAllUnder } from 'https://cdn.skypack.dev/prismjs@1.29.0'
-import { create, html } from '../index.js'
+import { highlightElement } from 'https://cdn.skypack.dev/prismjs@1.29.0'
+import { create } from '//unpkg.com/cuick-dev@latest'
 
-const codeTemplate = (doc, extension) => `
-\`\`\`${extension}
-${doc}
-\`\`\`
-`
+const css = (t) =>
+	[
+		'https://cdn.jsdelivr.net',
+		'/npm/prism-themes/themes/',
+		`prism-${t}.css`,
+	].join('')
 
 create('code', {
-	src: '/README.md',
+	src: 'https://unpkg.com/cuick-dev@1.0.1/components/toolbar.js',
 	theme: 'one-dark',
 	setup({ src, theme, root }) {
-		const stylesheet = theme.startsWith('http')
-			? theme
-			: `https://cdn.jsdelivr.net/npm/prism-themes/themes/prism-${theme}.css`
-		const prismStyles = `
-			<link rel="stylesheet" href="${stylesheet}">
-			<style>
-				code[class*='language-'],
-				pre[class*='language-'] {
-					font-size: 0.9rem;
-					line-height: 2;
-					margin: 0;
-					tab-size: 2;
-				}
-			</style>
-		`
+		const fileType = src.split('.').slice(-1)
+		const link = document.createElement('link')
+		link.rel = 'stylesheet'
+		link.href = css(theme)
+		root.appendChild(link)
+		const code = document.createElement('code')
+		code.classList.add(`language-${'javascript'}`)
+		const pre = document.createElement('pre')
+		pre.appendChild(code)
 		fetch(src)
 			.then((res) => res.text())
-			.then((doc) => {
-				if (src.endsWith('.md')) {
-					root.innerHTML = prismStyles + parse(doc)
-				} else {
-					const srcArr = src.split(['.'])
-					const extension = srcArr[srcArr.length - 1]
-					root.innerHTML =
-						prismStyles +
-						parse(codeTemplate(doc.replace(/\t/g, '  '), extension))
-				}
-				highlightAllUnder(root)
+			.then((text) => {
+				code.textContent = text
+				highlightElement(code)
+				root.appendChild(pre)
 			})
-	},
-	template() {
-		return html`<slot />`
 	},
 })
