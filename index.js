@@ -95,15 +95,17 @@ export const create = (name, options) => {
 				}
 			}
 			connectedCallback() {
-				render(
-					this.root,
-					() => html`
-						${this.template(this)}
-						<style>
-							${theme + (this.styles ? this.styles : '')}
-						</style>
-					`
-				)
+				if (this.template) {
+					render(
+						this.root,
+						() => html`
+							${this.template(this)}
+							<style>
+								${theme + (this.styles ? this.styles : '')}
+							</style>
+						`
+					)
+				}
 			}
 			attributeChangedCallback() {
 				this.connectedCallback()
