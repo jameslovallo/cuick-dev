@@ -10,11 +10,17 @@
 		<meta property="og:description" content="Create fast, self-documenting components that work anywhere, without any tooling." />
 		<meta property="og:image" content="" />
 	</head>
-	<body data-page="templates">
-		<c-code></c-code>
-		<c-nav></c-nav>
-		<main><h1>Project Templates</h1>
-</main>
+	<body>
+		<nav>
+			<a slot="left" href="/">Home</a>
+			<a slot="right" href="/components">Components</a>
+			<a slot="right" href="/templates"> Project Templates </a>
+		</nav>
+		<main data-page="templates">
+			<h1>Project Templates</h1>
+
+		</main>
 		<script type="module" src="/src/main.js"></script>
+		<c-code></c-code>
 	</body>
 </html>

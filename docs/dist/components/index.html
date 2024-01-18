@@ -4,19 +4,71 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="stylesheet" href="/src/style.css" />
 		
-		<title>Cuick</title>
+		<title>Components</title>
 		<meta name="description" content="Create fast, self-documenting components that work anywhere, without any tooling." />
-		<meta property="og:title" content="Cuick" />
+		<meta property="og:title" content="Components" />
 		<meta property="og:description" content="Create fast, self-documenting components that work anywhere, without any tooling." />
 		<meta property="og:image" content="" />
 	</head>
-	<body data-page="components">
-		<c-code></c-code>
-		<c-nav></c-nav>
-		<main><h1>Components</h1>
-<p><a href="code">Code</a>
-<a href="grid">Grid</a></p>
-</main>
+	<body>
+		<nav>
+			<a slot="left" href="/">Home</a>
+			<a slot="right" href="/components">Components</a>
+			<a slot="right" href="/templates"> Project Templates </a>
+		</nav>
+		<main data-page="components">
+			<h1>Components</h1>
+<p>Cuick provides a small but powerful library of UI components. These components are ready for production. The are also here to demonstrate Cuick's API and how to document your components using the <code>&lt;c-story&gt;</code> component.</p>
+<div class="component-grid">
+	<a href="code">
+		<span class="icon"><svg viewBox="0 0 24 24"><path d="M12.89,3L14.85,3.4L11.11,21L9.15,20.6L12.89,3M19.59,12L16,8.41V5.58L22.42,12L16,18.41V15.58L19.59,12M1.58,12L8,5.58V8.41L4.41,12L8,15.58V18.41L1.58,12Z" /></svg></span>
+		Code
+	</a>
+	<a href="grid">
+		<span class="icon"><svg viewBox="0 0 24 24"><path d="M12 16C13.1 16 14 16.9 14 18S13.1 20 12 20 10 19.1 10 18 10.9 16 12 16M12 10C13.1 10 14 10.9 14 12S13.1 14 12 14 10 13.1 10 12 10.9 10 12 10M12 4C13.1 4 14 4.9 14 6S13.1 8 12 8 10 7.1 10 6 10.9 4 12 4M6 16C7.1 16 8 16.9 8 18S7.1 20 6 20 4 19.1 4 18 4.9 16 6 16M6 10C7.1 10 8 10.9 8 12S7.1 14 6 14 4 13.1 4 12 4.9 10 6 10M6 4C7.1 4 8 4.9 8 6S7.1 8 6 8 4 7.1 4 6 4.9 4 6 4M18 16C19.1 16 20 16.9 20 18S19.1 20 18 20 16 19.1 16 18 16.9 16 18 16M18 10C19.1 10 20 10.9 20 12S19.1 14 18 14 16 13.1 16 12 16.9 10 18 10M18 4C19.1 4 20 4.9 20 6S19.1 8 18 8 16 7.1 16 6 16.9 4 18 4Z" /></svg></span>
+		Grid
+	</a>
+	<a href="grid">
+		<span class="icon"><svg viewBox="0 0 24 24"><path d="M12 16C13.1 16 14 16.9 14 18S13.1 20 12 20 10 19.1 10 18 10.9 16 12 16M12 10C13.1 10 14 10.9 14 12S13.1 14 12 14 10 13.1 10 12 10.9 10 12 10M12 4C13.1 4 14 4.9 14 6S13.1 8 12 8 10 7.1 10 6 10.9 4 12 4M6 16C7.1 16 8 16.9 8 18S7.1 20 6 20 4 19.1 4 18 4.9 16 6 16M6 10C7.1 10 8 10.9 8 12S7.1 14 6 14 4 13.1 4 12 4.9 10 6 10M6 4C7.1 4 8 4.9 8 6S7.1 8 6 8 4 7.1 4 6 4.9 4 6 4M18 16C19.1 16 20 16.9 20 18S19.1 20 18 20 16 19.1 16 18 16.9 16 18 16M18 10C19.1 10 20 10.9 20 12S19.1 14 18 14 16 13.1 16 12 16.9 10 18 10M18 4C19.1 4 20 4.9 20 6S19.1 8 18 8 16 7.1 16 6 16.9 4 18 4Z" /></svg></span>
+		Grid
+	</a>
+	<a href="grid">
+		<span class="icon"><svg viewBox="0 0 24 24"><path d="M12 16C13.1 16 14 16.9 14 18S13.1 20 12 20 10 19.1 10 18 10.9 16 12 16M12 10C13.1 10 14 10.9 14 12S13.1 14 12 14 10 13.1 10 12 10.9 10 12 10M12 4C13.1 4 14 4.9 14 6S13.1 8 12 8 10 7.1 10 6 10.9 4 12 4M6 16C7.1 16 8 16.9 8 18S7.1 20 6 20 4 19.1 4 18 4.9 16 6 16M6 10C7.1 10 8 10.9 8 12S7.1 14 6 14 4 13.1 4 12 4.9 10 6 10M6 4C7.1 4 8 4.9 8 6S7.1 8 6 8 4 7.1 4 6 4.9 4 6 4M18 16C19.1 16 20 16.9 20 18S19.1 20 18 20 16 19.1 16 18 16.9 16 18 16M18 10C19.1 10 20 10.9 20 12S19.1 14 18 14 16 13.1 16 12 16.9 10 18 10M18 4C19.1 4 20 4.9 20 6S19.1 8 18 8 16 7.1 16 6 16.9 4 18 4Z" /></svg></span>
+		Grid
+	</a>
+</div>
+<style>
+	.component-grid {
+		display: grid;
+		gap: 1rem;
+		grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+	}
+	.component-grid a {
+		background: var(--atom-bg);
+		border: var(--atom-border);
+		border-radius: 1rem;
+		display: grid;
+		gap: 1rem;
+		justify-content: center;
+		padding: 1rem;
+		text-align: center;
+		text-decoration: none;
+	}
+	.component-grid a .icon {
+		border: 1px solid var(--gold);
+		border-radius: 50%;
+		box-sizing: border-box;
+		padding: 1rem;
+		width: 4rem;
+	}
+	.component-grid a:hover .icon {
+		background: var(--gold);
+		color: black;
+	}
+</style>
+
+		</main>
 		<script type="module" src="/src/main.js"></script>
+		<c-code></c-code>
 	</body>
 </html>

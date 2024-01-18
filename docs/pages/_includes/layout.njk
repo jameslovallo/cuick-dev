@@ -10,10 +10,16 @@
 		<meta property="og:description" content="{{ description }}" />
 		<meta property="og:image" content="{{ image }}" />
 	</head>
-	<body data-page="{{ page.fileSlug }}">
-		<c-code></c-code>
-		<c-nav></c-nav>
-		<main>{{ content | safe }}</main>
+	<body>
+		<nav>
+			<a slot="left" href="/">Home</a>
+			<a slot="right" href="/components">Components</a>
+			<a slot="right" href="/templates"> Project Templates </a>
+		</nav>
+		<main data-page="{{ page.fileSlug }}">
+			{{ content | safe }}
+		</main>
 		<script type="module" src="/src/main.js"></script>
+		<c-code></c-code>
 	</body>
 </html>

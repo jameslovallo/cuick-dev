@@ -29,7 +29,7 @@ Reactive properties (signals) store stateful data and efficiently update the com
 Slots allow you to inject child elements anywhere inside your component's Shadow DOM. You can use a default slot or multiple named slots. To assign a child element to a named slot, add the `slot` attribute to the element and set the value to the name of the slot.
 
 <c-story>
-	<c-toolbar style="background: indigo">
+	<c-toolbar>
 		<a slot="left">Left</a>
 		<span slot="center">Center</span>
 		<a slot="right">Right</a>
@@ -46,5 +46,12 @@ Watched elements allow your component to synchronize with another component's pr
 In this example, the language switcher on the right side of the site nav updates the `lang` attribute on the <code>&lt;demo-i18n&gt;</code> element (see flag in heading). When the `lang` attribute changes, any components watching the element (like the nav) will also update, regardless of how the elements are arranged in the DOM. It's a whole lot easier than React's Context API. 😉
 
 <c-story>
-	<demo-nav style="background: indigo"></demo-nav>
+	<demo-nav></demo-nav>
 </c-story>
+
+<style>
+	c-toolbar,
+	demo-nav {
+		background: var(--atom-bg)
+	}
+</style>

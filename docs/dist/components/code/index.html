@@ -10,10 +10,14 @@
 		<meta property="og:description" content="Create fast, self-documenting components that work anywhere, without any tooling." />
 		<meta property="og:image" content="" />
 	</head>
-	<body data-page="code">
-		<c-code></c-code>
-		<c-nav></c-nav>
-		<main><h1>Code</h1>
+	<body>
+		<nav>
+			<a slot="left" href="/">Home</a>
+			<a slot="right" href="/components">Components</a>
+			<a slot="right" href="/templates"> Project Templates </a>
+		</nav>
+		<main data-page="code">
+			<h1>Code</h1>
 <p><code>&lt;c-code&gt;</code> uses <a href="https://prismjs.com">Prism</a> to highlight code blocks or code from remote files.</p>
 <pre><code class="language-js">import '//unpkg.com/cuick-dev/components/code.js'
 </code></pre>
@@ -26,7 +30,9 @@
 <h3>All Code Blocks</h3>
 <pre><code class="language-html">&lt;c-code&gt;&lt;/c-code&gt;
 </code></pre>
-</main>
+
+		</main>
 		<script type="module" src="/src/main.js"></script>
+		<c-code></c-code>
 	</body>
 </html>

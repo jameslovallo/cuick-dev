@@ -37,7 +37,7 @@ Each breakpoint variable is inerited by larger breakpoints, i.e. `--xs -> --sm -
 
 <style>
 	c-grid div {
-		background: #333;
+		background: var(--atom-bg);
 		padding: .25rem;
 	}
 </style>

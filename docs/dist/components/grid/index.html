@@ -10,10 +10,14 @@
 		<meta property="og:description" content="Create fast, self-documenting components that work anywhere, without any tooling." />
 		<meta property="og:image" content="" />
 	</head>
-	<body data-page="grid">
-		<c-code></c-code>
-		<c-nav></c-nav>
-		<main><h1>Grid</h1>
+	<body>
+		<nav>
+			<a slot="left" href="/">Home</a>
+			<a slot="right" href="/components">Components</a>
+			<a slot="right" href="/templates"> Project Templates </a>
+		</nav>
+		<main data-page="grid">
+			<h1>Grid</h1>
 <p><code>&lt;c-grid&gt;</code> couldn't be easier to use and keeps your DOM clean.</p>
 <pre><code class="language-js">import '//unpkg.com/cuick-dev/components/grid.js'
 </code></pre>
@@ -40,11 +44,13 @@
 </c-story>
 <style>
 	c-grid div {
-		background: #333;
+		background: var(--atom-bg);
 		padding: .25rem;
 	}
 </style>
-</main>
+
+		</main>
 		<script type="module" src="/src/main.js"></script>
+		<c-code></c-code>
 	</body>
 </html>

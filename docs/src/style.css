@@ -1,18 +1,35 @@
 @import url('https://fonts.googleapis.com/css2?family=Cairo+Play:wght@700&display=swap');
 
+* {
+	box-sizing: border-box;
+}
+
 :root {
 	background: #111;
 	color-scheme: dark;
 	font-family: sans-serif;
+	--atom-bg: #272b33;
+	--atom-border: 1px solid rgba(125, 125, 125, 0.25);
+	--gold: #ffab00;
 }
 
 body {
 	margin: 0;
 }
 
-c-nav:not(:defined) {
-	display: block;
-	height: 3rem;
+nav {
+	align-items: center;
+	display: flex;
+	gap: 1rem;
+	padding: 1rem;
+}
+
+nav a {
+	text-decoration: none;
+}
+
+nav a:first-child {
+	margin-right: auto;
 }
 
 main {
@@ -58,8 +75,13 @@ code {
 :not(pre) > code {
 	background: #272b33;
 	border-radius: 0.25rem;
-	color: goldenrod;
+	color: var(--gold);
 	font-size: 14px;
 	line-height: 1;
 	padding: 0.1rem 0.25rem;
+}
+
+svg {
+	display: block;
+	fill: currentcolor;
 }

@@ -10,10 +10,14 @@
 		<meta property="og:description" content="Create fast, self-documenting components that work anywhere, without any tooling." />
 		<meta property="og:image" content="" />
 	</head>
-	<body data-page="">
-		<c-code></c-code>
-		<c-nav></c-nav>
-		<main><h1>Cuick</h1>
+	<body>
+		<nav>
+			<a slot="left" href="/">Home</a>
+			<a slot="right" href="/components">Components</a>
+			<a slot="right" href="/templates"> Project Templates </a>
+		</nav>
+		<main data-page="">
+			<h1>Cuick</h1>
 <p>Create fast, self-documenting components that work <em>anywhere</em>, without <em>any</em> tooling.</p>
 <h2>Features</h2>
 <p>Cuick is lightning fast, works anywhere, and has a beginner-friendly API, documented in the interactive playgrounds below. Fun fact: those playgrounds are powered by Cuick's <code>&lt;c-story&gt;</code> component, which automatically creates interactive documentation for a nested Cuick component.</p>
@@ -31,7 +35,7 @@
 <h2>Slots</h2>
 <p>Slots allow you to inject child elements anywhere inside your component's Shadow DOM. You can use a default slot or multiple named slots. To assign a child element to a named slot, add the <code>slot</code> attribute to the element and set the value to the name of the slot.</p>
 <c-story>
-	<c-toolbar style="background: indigo">
+	<c-toolbar>
 		<a slot="left">Left</a>
 		<span slot="center">Center</span>
 		<a slot="right">Right</a>
@@ -44,9 +48,17 @@
 <p>Watched elements allow your component to synchronize with another component's properties. This is very useful for groups of components that need to be able to react to each other, for example an i18n system or a carousel with external control elements. To watch an element, add a key to the component's options object that begins with a <code>_</code> and set the value to the selector for the element the component should watch for updates.</p>
 <p>In this example, the language switcher on the right side of the site nav updates the <code>lang</code> attribute on the <code>&lt;demo-i18n&gt;</code> element (see flag in heading). When the <code>lang</code> attribute changes, any components watching the element (like the nav) will also update, regardless of how the elements are arranged in the DOM. It's a whole lot easier than React's Context API. 😉</p>
 <c-story>
-	<demo-nav style="background: indigo"></demo-nav>
+	<demo-nav></demo-nav>
 </c-story>
-</main>
+<style>
+	c-toolbar,
+	demo-nav {
+		background: var(--atom-bg)
+	}
+</style>
+
+		</main>
 		<script type="module" src="/src/main.js"></script>
+		<c-code></c-code>
 	</body>
 </html>
