@@ -63,7 +63,7 @@ li {
 
 a {
 	color: inherit;
-	text-decoration-color: #e53a34;
+	text-decoration-color: var(--gold);
 	text-underline-offset: 2px;
 }
 

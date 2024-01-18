@@ -7,6 +7,10 @@ title: Components
 Cuick provides a small but powerful library of UI components. These components are ready for production. The are also here to demonstrate Cuick's API and how to document your components using the `<c-story>` component.
 
 <div class="component-grid">
+	<a href="badge">
+		<span class="icon">{{ icons.badge }}</span>
+		Badge
+	</a>
 	<a href="code">
 		<span class="icon">{{ icons.code }}</span>
 		Code
@@ -18,10 +22,6 @@ Cuick provides a small but powerful library of UI components. These components a
 	<a href="toolbar">
 		<span class="icon">{{ icons.toolbar }}</span>
 		Toolbar
-	</a>
-	<a href="grid">
-		<span class="icon">{{ icons.grid }}</span>
-		Grid
 	</a>
 </div>
 
