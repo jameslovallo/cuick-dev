@@ -1,0 +1,19 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="/src/style.css" />
+		{# meta #}
+		<title>{{ title }}</title>
+		<meta name="description" content="{{ description }}" />
+		<meta property="og:title" content="{{ title }}" />
+		<meta property="og:description" content="{{ description }}" />
+		<meta property="og:image" content="{{ image }}" />
+	</head>
+	<body data-page="{{ page.fileSlug }}">
+		<c-code></c-code>
+		<c-nav></c-nav>
+		<main>{{ content | safe }}</main>
+		<script type="module" src="/src/main.js"></script>
+	</body>
+</html>

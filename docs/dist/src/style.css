@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo+Play:wght@700&display=swap');
+
+:root {
+	background: #111;
+	color-scheme: dark;
+	font-family: sans-serif;
+}
+
+body {
+	margin: 0;
+}
+
+c-nav:not(:defined) {
+	display: block;
+	height: 3rem;
+}
+
+main {
+	margin: auto;
+	max-width: 70ch;
+	padding: 0 1rem 4rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin-bottom: 1rem;
+	margin-top: 2em;
+}
+
+h1 {
+	font-family: Cairo Play;
+	font-size: 3rem;
+	font-style: italic;
+	line-height: 1;
+	margin-top: 1em;
+}
+
+p,
+li {
+	line-height: 1.75rem;
+}
+
+a {
+	color: inherit;
+	text-decoration-color: #e53a34;
+	text-underline-offset: 2px;
+}
+
+code {
+	font-family: 'Fira Code', 'Fira Mono', Menlo, Consolas, 'DejaVu Sans Mono',
+		monospace;
+}
+
+:not(pre) > code {
+	background: #272b33;
+	border-radius: 0.25rem;
+	color: goldenrod;
+	font-size: 14px;
+	line-height: 1;
+	padding: 0.1rem 0.25rem;
+}
