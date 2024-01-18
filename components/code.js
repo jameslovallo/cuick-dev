@@ -1,5 +1,5 @@
-import { create } from '../index.js'
 import { highlightElement } from '//cdn.skypack.dev/prismjs@1.29.0'
+import { create } from '//unpkg.com/cuick-dev@latest'
 
 const css = (t) =>
 	[
@@ -9,24 +9,34 @@ const css = (t) =>
 	].join('')
 
 create('code', {
-	src: 'https://unpkg.com/cuick-dev@1.0.1/components/toolbar.js',
+	src: '',
 	theme: 'one-dark',
 	setup({ src, theme, root }) {
-		const fileType = src.split('.').slice(-1)
 		const link = document.createElement('link')
 		link.rel = 'stylesheet'
 		link.href = css(theme)
-		root.appendChild(link)
-		const code = document.createElement('code')
-		code.classList.add(`language-${'javascript'}`)
-		const pre = document.createElement('pre')
-		pre.appendChild(code)
-		fetch(src)
-			.then((res) => res.text())
-			.then((text) => {
-				code.textContent = text
-				highlightElement(code)
-				root.appendChild(pre)
-			})
+		if (src) {
+			const fileType = src.split('.').slice(-1)
+			root.appendChild(link)
+			const code = document.createElement('code')
+			code.classList.add(`language-${fileType}`)
+			const pre = document.createElement('pre')
+			pre.appendChild(code)
+			fetch(src)
+				.then((res) => res.text())
+				.then((text) => {
+					code.textContent = text
+					highlightElement(code)
+					root.appendChild(pre)
+				})
+		} else {
+			link.setAttribute('c-code', '')
+			if (!document.querySelector('c-code').length) {
+				document.head.appendChild(link)
+			}
+			document
+				.querySelectorAll('[class*=language-]')
+				.forEach((c) => highlightElement(c))
+		}
 	},
 })
