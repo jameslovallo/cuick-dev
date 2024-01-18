@@ -6,5 +6,8 @@
 	"module": "index.js",
 	"description": "Create fast, self-documenting components that work anywhere, without any tooling.",
 	"author": "James Lovallo",
-	"license": "ISC"
+	"license": "ISC",
+	"scripts": {
+		"publish": "npm version patch && npm publish && git push --follow-tags"
+	}
 }
