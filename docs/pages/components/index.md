@@ -15,9 +15,9 @@ Cuick provides a small but powerful library of UI components. These components a
 		<span class="icon">{{ icons.grid }}</span>
 		Grid
 	</a>
-	<a href="grid">
-		<span class="icon">{{ icons.grid }}</span>
-		Grid
+	<a href="toolbar">
+		<span class="icon">{{ icons.toolbar }}</span>
+		Toolbar
 	</a>
 	<a href="grid">
 		<span class="icon">{{ icons.grid }}</span>
@@ -35,22 +35,27 @@ Cuick provides a small but powerful library of UI components. These components a
 		background: var(--atom-bg);
 		border: var(--atom-border);
 		border-radius: 1rem;
+		box-sizing: padding-box;
 		display: grid;
 		gap: 1rem;
 		justify-content: center;
 		padding: 1rem;
 		text-align: center;
 		text-decoration: none;
+		transition: .25s;
+	}
+	.component-grid a:hover:not(:active) {
+		border-bottom-width: 4px;
+		margin-top: -3px;
 	}
 	.component-grid a .icon {
-		border: 1px solid var(--gold);
+		box-shadow: inset 0 0 0 1px var(--gold);
 		border-radius: 50%;
-		box-sizing: border-box;
 		padding: 1rem;
+		transition: .25s;
 		width: 4rem;
 	}
 	.component-grid a:hover .icon {
-		background: var(--gold);
-		color: black;
+		box-shadow: inset 0 0 0 3px var(--gold);
 	}
 </style>
