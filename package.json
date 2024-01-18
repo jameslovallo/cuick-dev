@@ -8,6 +8,6 @@
 	"author": "James Lovallo",
 	"license": "ISC",
 	"scripts": {
-		"publish": "npm version patch && npm publish && git push --follow-tags"
+		"publish package": "npm version patch && npm publish && git push --follow-tags"
 	}
 }

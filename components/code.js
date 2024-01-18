@@ -1,20 +1,13 @@
 import { highlightElement } from '//cdn.skypack.dev/prismjs@1.29.0'
 import { create } from '//unpkg.com/cuick-dev@latest'
 
-const css = (t) =>
-	[
-		'https://cdn.jsdelivr.net',
-		'/npm/prism-themes/themes/',
-		`prism-${t}.css`,
-	].join('')
-
 create('code', {
 	src: '',
 	theme: 'one-dark',
 	setup({ src, theme, root }) {
 		const link = document.createElement('link')
 		link.rel = 'stylesheet'
-		link.href = css(theme)
+		link.href = `https://unpkg.com/prism-themes/themes/prism-${t}.min.css`
 		if (src) {
 			const fileType = src.split('.').slice(-1)
 			root.appendChild(link)
