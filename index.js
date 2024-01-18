@@ -9,7 +9,6 @@ const theme = `
 		--primary-bg: dodgerblue;
 		--primary-fg: white;
 		font-family: sans-serif;
-		line-height: 1.5;
 		-webkit-font-smoothing: antialiased;
 	}
 	img, picture, video, canvas, svg {
