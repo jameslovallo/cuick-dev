@@ -7,7 +7,7 @@ create('code', {
 	setup({ src, theme, root }) {
 		const link = document.createElement('link')
 		link.rel = 'stylesheet'
-		link.href = `https://unpkg.com/prism-themes/themes/prism-${t}.min.css`
+		link.href = `https://unpkg.com/prism-themes/themes/prism-${theme}.min.css`
 		if (src) {
 			const fileType = src.split('.').slice(-1)
 			root.appendChild(link)
