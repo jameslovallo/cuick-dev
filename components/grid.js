@@ -3,6 +3,7 @@ import { create, html } from '//unpkg.com/cuick-dev'
 create('grid', {
 	columns: 12,
 	gap: '1rem',
+	alignment: 'center',
 	sm: 640,
 	md: 768,
 	lg: 1024,
@@ -19,6 +20,7 @@ create('grid', {
 						display: grid;
 						gap: ${gap};
 						grid-template-columns: repeat(${columns}, 1fr);
+						align-items: ${alignment};
 					}
 					::slotted(*) {
 						/* span */
