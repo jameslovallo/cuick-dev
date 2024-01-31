@@ -46,7 +46,6 @@ export const create = (name, options) => {
 			)
 			constructor() {
 				super().attachShadow({ mode: 'open' })
-				this.root = this.shadowRoot
 				this.template = options.template
 				this.styles = options.styles
 				this.config = options
@@ -96,7 +95,7 @@ export const create = (name, options) => {
 			connectedCallback() {
 				if (this.template) {
 					render(
-						this.root,
+						this.shadowRoot,
 						() => html`
 							${this.template(this)}
 							<style>
