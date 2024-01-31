@@ -56,19 +56,19 @@ export const create = (name, options) => {
 						if (o.startsWith('$')) {
 							this[o] = signal(options[o])
 						} else {
-							const dv = options[o]
-							const type = typeof dv
+							let dv = options[o][0] || options[o]
+							let type = typeof dv
+							if (o.startsWith('_')) {
+								type = 'el'
+								dv = document.querySelector(v)
+								dv.addEventListener('updated', this.connectedCallback)
+							}
 							Object.defineProperty(this, o, {
 								get: () => {
 									const v = this.getAttribute(o) || dv
-									if (o.startsWith('_')) {
-										const el = document.querySelector(v)
-										el.addEventListener('updated', () =>
-											this.connectedCallback()
-										)
-										return el
-									}
 									switch (type) {
+										case 'el':
+											return dv
 										case 'string':
 											return v
 										case 'number':

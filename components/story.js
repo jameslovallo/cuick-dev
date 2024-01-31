@@ -61,20 +61,34 @@ create('story', {
 	template({ child, props, watched, signals, slots }) {
 		const input = (key, value) => {
 			const type = getType(value)
-			return html`
-				<input
-					type=${type}
-					?checked=${type === 'checkbox' && value}
-					value=${type !== 'checkbox' && value ? value : null}
-					@input=${(e) =>
-						handleAttr({
-							el: child,
-							type: type === 'checkbox' ? 'boolean' : type,
-							attr: key,
-							value: e.target.checked || e.target.value,
-						})}
-				/>
-			`
+			const assignedValue =
+				type === 'checkbox' ? child.hasAttribute(key) : child.getAttribute(key)
+			return Array.isArray(value)
+				? html`
+						<select @change=${(e) => child.setAttribute(key, e.target.value)}>
+							${value.map(
+								(option) => html`
+									<option selected=${option === assignedValue ? true : null}>
+										${option}
+									</option>
+								`
+							)}
+						</select>
+				  `
+				: html`
+						<input
+							type=${type}
+							?checked=${type === 'checkbox' && (assignedValue || value)}
+							value=${type !== 'checkbox' ? assignedValue || value : null}
+							@input=${(e) =>
+								handleAttr({
+									el: child,
+									type: type === 'checkbox' ? 'boolean' : type,
+									attr: key,
+									value: e.target.checked || e.target.value,
+								})}
+						/>
+				  `
 		}
 		const fieldset = (category, label) => {
 			return category.length
@@ -140,6 +154,14 @@ create('story', {
 		}
 		legend {
 			padding: 0 0.5rem;
+		}
+		input:not([type='checkbox']),
+		select {
+			background: transparent;
+			border: var(--border);
+			border-radius: var(--border-radius);
+			min-width: 150px;
+			width: 200px;
 		}
 		.flex {
 			align-items: center;

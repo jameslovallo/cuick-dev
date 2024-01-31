@@ -3,7 +3,7 @@ import { create, html } from '//unpkg.com/cuick-dev'
 create('grid', {
 	columns: 12,
 	gap: '1rem',
-	alignment: 'center',
+	alignment: ['center', 'start', 'end', 'stretch'],
 	sm: 640,
 	md: 768,
 	lg: 1024,

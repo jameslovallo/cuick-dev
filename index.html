@@ -1,0 +1,20 @@
+<script type="module">
+	import { create, html } from '/index.js'
+	import '/components/story.js'
+	import '/components/grid.js'
+
+	create('test', {
+		string: 'String',
+		strings: ['red', 'green', 'blue'],
+		number: 0,
+		numbers: [1, 2, 3],
+		boolean: false,
+		template: ({ string, strings, number, numbers, boolean }) => html`
+			<p>${string} ${strings}, ${number * 2} ${numbers * 2}, ${boolean}</p>
+		`,
+	})
+</script>
+
+<c-story>
+	<c-test string="bob" strings="green"></c-test>
+</c-story>
