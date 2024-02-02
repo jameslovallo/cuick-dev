@@ -55,11 +55,12 @@ export const create = (name, options) => {
 						if (o.startsWith('$')) {
 							this[o] = signal(options[o])
 						} else {
-							let dv = options[o][0] || options[o]
+							let dv = options[o]
+							if (Array.isArray(dv)) dv = dv[0]
 							let type = typeof dv
 							if (o.startsWith('_')) {
 								type = 'el'
-								dv = document.querySelector(v)
+								dv = document.querySelector(dv)
 								dv.addEventListener('updated', this.connectedCallback)
 							}
 							Object.defineProperty(this, o, {

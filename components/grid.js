@@ -1,4 +1,4 @@
-import { create, html } from '//unpkg.com/cuick-dev'
+import { create } from '../index.js'
 
 create('grid', {
 	columns: 12,

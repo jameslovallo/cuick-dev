@@ -1,16 +1,16 @@
+import { create } from '../index.js'
 import { highlightElement } from '//cdn.skypack.dev/prismjs@1.29.0'
-import { create } from '//unpkg.com/cuick-dev@latest'
 
 create('code', {
 	src: '',
 	theme: 'one-dark',
-	setup({ src, theme, root }) {
+	setup({ src, theme, shadowRoot }) {
 		const link = document.createElement('link')
 		link.rel = 'stylesheet'
 		link.href = `https://unpkg.com/prism-themes/themes/prism-${theme}.min.css`
 		if (src) {
 			const fileType = src.split('.').slice(-1)
-			root.appendChild(link)
+			shadowRoot.appendChild(link)
 			const code = document.createElement('code')
 			code.classList.add(`language-${fileType}`)
 			const pre = document.createElement('pre')
@@ -20,7 +20,7 @@ create('code', {
 				.then((text) => {
 					code.textContent = text
 					highlightElement(code)
-					root.appendChild(pre)
+					shadowRoot.appendChild(pre)
 				})
 		} else {
 			link.setAttribute('c-code', '')
