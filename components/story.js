@@ -149,15 +149,15 @@ create('story', {
 																type="color"
 																@input=${(e) => {
 																	child.style.setProperty(v[0], e.target.value)
-																	e.target.style.setProperty(
+																	e.target.nextElementSibling.style.setProperty(
 																		'--bg',
 																		e.target.value
 																	)
-																	e.target.nextElementSibling.value =
+																	e.target.parentElement.lastElementChild.value =
 																		e.target.value
 																}}
-																style=${`--bg: ${v[1]}`}
 															/>
+															<div class="color" style=${`--bg: ${v[1]}`} />
 													  `
 													: ''}
 												<input
@@ -231,21 +231,18 @@ create('story', {
 			position: relative;
 		}
 		[type='color'] {
-			border: none;
-			border-radius: 50%;
 			height: 1rem;
 			margin-right: 0.5rem;
+			opacity: 0;
 			width: 1rem;
 		}
-		[type='color']:before {
+		.color {
 			background: var(--bg);
 			border: var(--border);
 			border-radius: 50%;
-			content: '';
-			display: block;
 			height: 1rem;
 			left: 0;
-			margin-right: 0.5rem;
+			pointer-events: none;
 			position: absolute;
 			top: calc(50% - 0.5rem);
 			width: 1rem;
