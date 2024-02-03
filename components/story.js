@@ -1,6 +1,5 @@
 import { create, css, handleAttr, html, reserved } from '../index.js'
 import colors from './utils/colorNames.js'
-console.log(colors)
 
 const getType = (v) => {
 	let type
@@ -27,6 +26,7 @@ function waitFor(conditionFunction) {
 }
 
 create('story', {
+	$buttonText: 'Copy Element',
 	setup() {
 		this.props = []
 		this.watched = []
@@ -46,17 +46,9 @@ create('story', {
 						this.props.push([k, childConfig[k]])
 					}
 				})
-			const template = String(childConfig.template)
-			;[/<slot>/g, /<slot\s+\/>/g, /<slot name="[a-z]+/g].forEach((r) => {
-				const matches = template.match(r)
-				matches &&
-					matches.forEach((match) => {
-						if (!match.includes('name') && this.slots.includes('default')) {
-							this.slots.push('default')
-						} else if (match.includes('name')) {
-							this.slots.push(match.split('name="')[1])
-						}
-					})
+			const slots = this.child.shadowRoot.querySelectorAll('slot')
+			;[...slots].forEach((slot) => {
+				this.slots.push([slot.name || 'default', slot.innerHTML])
 			})
 			if (childConfig.styles) {
 				const host = childConfig.styles[0].match(/:host {[\s\S]*?}/gm)[0]
@@ -76,7 +68,7 @@ create('story', {
 			this.connectedCallback()
 		})
 	},
-	template({ child, props, watched, signals, slots, cssVars }) {
+	template({ child, props, watched, signals, slots, cssVars, $buttonText }) {
 		const input = (key, value) => {
 			const type = getType(value)
 			const assignedValue =
@@ -182,11 +174,32 @@ create('story', {
 							<fieldset>
 								<legend>Slots</legend>
 								<ol>
-									${slots.map((slot) => html`<li>${slot}</li>`)}
+									${slots.map(
+										(slot) => html`
+											<li>
+												<div
+													class="flex"
+													style="justify-content: space-between;"
+												>
+													${slot[0]}<span>${slot[1]}</span>
+												</div>
+											</li>
+										`
+									)}
 								</ol>
 							</fieldset>
 					  `
 					: ''}
+				<button
+					@click=${(e) => {
+						e.preventDefault()
+						navigator.clipboard.writeText(child.outerHTML)
+						$buttonText.value = 'Copied!'
+						setTimeout(() => ($buttonText.value = 'Copy Element'), 2000)
+					}}
+				>
+					${$buttonText.value}
+				</button>
 			</form>
 		`
 	},
@@ -252,6 +265,16 @@ create('story', {
 			gap: 0.5rem;
 			margin: 0;
 			padding-left: 1rem;
+		}
+		button {
+			background: transparent;
+			border: var(--border);
+			border-radius: var(--border-radius);
+			padding: 0.5rem;
+		}
+		button:hover {
+			background: var(--primary-bg);
+			color: var(--primary-fg);
 		}
 	`,
 })
