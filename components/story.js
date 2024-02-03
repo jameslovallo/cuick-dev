@@ -226,8 +226,11 @@ create('story', {
 			display: grid;
 			gap: 1rem;
 			margin: 0;
+			padding: 1rem;
 		}
 		legend {
+			font-size: 14px;
+			font-weight: bold;
 			padding: 0 0.5rem;
 		}
 		input:not([type='checkbox']):not([type='color']),
