@@ -235,6 +235,8 @@ create('story', {
 			background: transparent;
 			border: var(--story-border);
 			border-radius: var(--story-border-radius);
+			font-size: 14px;
+			padding: 0.25rem;
 			width: 150px;
 		}
 		.flex {
@@ -247,7 +249,6 @@ create('story', {
 		}
 		[type='color'] {
 			height: 1rem;
-			margin-right: 0.5rem;
 			opacity: 0;
 			width: 1rem;
 		}
