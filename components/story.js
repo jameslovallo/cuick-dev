@@ -1,4 +1,6 @@
 import { create, css, handleAttr, html, reserved } from '../index.js'
+import colors from './utils/colorNames.js'
+console.log(colors)
 
 const getType = (v) => {
 	let type
@@ -30,6 +32,7 @@ create('story', {
 		this.watched = []
 		this.signals = []
 		this.slots = []
+		this.cssVars = []
 		this.child = this.children[0]
 		waitFor(() => this.child.config).then((childConfig) => {
 			Object.keys(childConfig)
@@ -55,10 +58,25 @@ create('story', {
 						}
 					})
 			})
+			if (childConfig.styles) {
+				const host = childConfig.styles[0].match(/:host {[\s\S]*?}/gm)[0]
+				if (host) {
+					const cssVars = host.match(/--[\w-]+:/gm)
+					if (cssVars) {
+						cssVars.forEach((v) => {
+							v = v.replace(':', '')
+							this.cssVars.push([
+								v,
+								getComputedStyle(this.child).getPropertyValue(v),
+							])
+						})
+					}
+				}
+			}
 			this.connectedCallback()
 		})
 	},
-	template({ child, props, watched, signals, slots }) {
+	template({ child, props, watched, signals, slots, cssVars }) {
 		const input = (key, value) => {
 			const type = getType(value)
 			const assignedValue =
@@ -113,8 +131,52 @@ create('story', {
 		return html`
 			<slot />
 			<form>
-				${fieldset(props, 'Props')} ${fieldset(watched, 'Watched Elements')}
-				${fieldset(signals, 'Signals', true)}
+				${fieldset(props, 'Props')} ${fieldset(signals, 'Signals', true)}
+				${fieldset(watched, 'Watched Elements')}
+				${cssVars.length
+					? html`
+							<fieldset>
+								<legend>CSS Variables</legend>
+								${cssVars.map(
+									(v) => html`
+										<label class="flex">
+											${v[0]}
+											<div class="flex">
+												${colors.filter((c) => v[1].toLowerCase().startsWith(c))
+													.length
+													? html`
+															<input
+																type="color"
+																@input=${(e) => {
+																	child.style.setProperty(v[0], e.target.value)
+																	e.target.style.setProperty(
+																		'--bg',
+																		e.target.value
+																	)
+																	e.target.nextElementSibling.value =
+																		e.target.value
+																}}
+																style=${`--bg: ${v[1]}`}
+															/>
+													  `
+													: ''}
+												<input
+													value=${v[1]}
+													@input=${(e) => {
+														child.style.setProperty(v[0], e.target.value)
+														e.target.previousElementSibling.style.setProperty(
+															'--bg',
+															e.target.value
+														)
+													}}
+												/>
+											</div>
+										</label>
+									`
+								)}
+							</fieldset>
+					  `
+					: ''}
 				${slots.length
 					? html`
 							<fieldset>
@@ -155,19 +217,38 @@ create('story', {
 		legend {
 			padding: 0 0.5rem;
 		}
-		input:not([type='checkbox']),
+		input:not([type='checkbox']):not([type='color']),
 		select {
 			background: transparent;
 			border: var(--border);
 			border-radius: var(--border-radius);
-			min-width: 150px;
-			width: 200px;
+			width: 150px;
 		}
 		.flex {
 			align-items: center;
 			display: flex;
 			justify-content: space-between;
 			position: relative;
+		}
+		[type='color'] {
+			border: none;
+			border-radius: 50%;
+			height: 1rem;
+			margin-right: 0.5rem;
+			width: 1rem;
+		}
+		[type='color']:before {
+			background: var(--bg);
+			border: var(--border);
+			border-radius: 50%;
+			content: '';
+			display: block;
+			height: 1rem;
+			left: 0;
+			margin-right: 0.5rem;
+			position: absolute;
+			top: calc(50% - 0.5rem);
+			width: 1rem;
 		}
 		ol {
 			display: grid;

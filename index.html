@@ -1,20 +1,25 @@
-<script type="module">
-	import { create, html } from '/index.js'
-	import '/components/story.js'
-	import '/components/grid.js'
+<h2>Badge</h2>
+<c-story>
+	<c-badge style="--badge-bg: #d00; --badge-border-radius: 0.75rem"></c-badge>
+</c-story>
 
-	create('test', {
-		string: 'String',
-		strings: ['red', 'green', 'blue'],
-		number: 0,
-		numbers: [1, 2, 3],
-		boolean: false,
-		template: ({ string, strings, number, numbers, boolean }) => html`
-			<p>${string} ${strings}, ${number * 2} ${numbers * 2}, ${boolean}</p>
-		`,
-	})
+<h2>Ribbon</h2>
+<c-story>
+	<c-badge variant="ribbon" label="ribbon"></c-badge>
+</c-story>
+
+<script type="module">
+	import '/components/story.js'
+	import '/components/badge.js'
 </script>
 
-<c-story>
-	<c-test string="bob" strings="green"></c-test>
-</c-story>
+<style>
+	:root {
+		font-family: sans-serif;
+	}
+	body {
+		margin: auto;
+		max-width: 70ch;
+		padding: 1rem;
+	}
+</style>
