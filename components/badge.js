@@ -3,8 +3,12 @@ import { create, css, html } from '../index.js'
 create('badge', {
 	label: '3',
 	variant: ['badge', 'ribbon'],
-	template: ({ label, variant }) => html`
-		<div class=${variant}>${label}</div>
+	href: '',
+	target: ['_self', '_blank'],
+	template: ({ label, variant, href, target }) => html`
+		${href
+			? html`<a href=${href} target=${target} class=${variant}>${label}</a>`
+			: html`<div class=${variant}>${label}</div>`}
 		<slot><div part="placeholder" /></slot>
 	`,
 	styles: css`
@@ -23,6 +27,7 @@ create('badge', {
 			padding: 0.5rem;
 			position: absolute;
 			right: -0.5rem;
+			text-decoration: none;
 			text-transform: uppercase;
 		}
 		.badge {
