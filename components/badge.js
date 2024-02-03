@@ -20,7 +20,6 @@ create('badge', {
 			background: var(--badge-bg);
 			color: var(--badge-fg);
 			font-size: 0.75rem;
-			letter-spacing: 1px;
 			padding: 0.5rem;
 			position: absolute;
 			right: -0.5rem;
@@ -32,6 +31,7 @@ create('badge', {
 			display: flex;
 			justify-content: center;
 			line-height: 1;
+			padding: 0.5rem 0.3rem;
 			top: -0.5rem;
 			height: 1.5rem;
 			min-width: 1.5rem;
@@ -39,6 +39,7 @@ create('badge', {
 		.ribbon {
 			border-radius: var(--badge-border-radius);
 			border-bottom-right-radius: 0;
+			letter-spacing: 1px;
 			top: 0.5rem;
 		}
 		.ribbon:before {
