@@ -205,10 +205,10 @@ create('story', {
 	},
 	styles: css`
 		:host {
-			--border: 1px solid rgba(150, 150, 150, 0.5);
-			--border-radius: 0;
-			border: var(--border);
-			border-radius: var(--border-radius);
+			--story-border: 1px solid rgba(150, 150, 150, 0.5);
+			--story-border-radius: 0;
+			border: var(--story-border);
+			border-radius: var(--story-border-radius);
 			display: grid;
 			gap: 1rem;
 			padding: 1rem 1rem 0;
@@ -221,8 +221,8 @@ create('story', {
 			gap: 1rem;
 		}
 		fieldset {
-			border: var(--border);
-			border-radius: var(--border-radius);
+			border: var(--story-border);
+			border-radius: var(--story-border-radius);
 			display: grid;
 			gap: 1rem;
 			margin: 0;
@@ -233,8 +233,8 @@ create('story', {
 		input:not([type='checkbox']):not([type='color']),
 		select {
 			background: transparent;
-			border: var(--border);
-			border-radius: var(--border-radius);
+			border: var(--story-border);
+			border-radius: var(--story-border-radius);
 			width: 150px;
 		}
 		.flex {
@@ -251,7 +251,7 @@ create('story', {
 		}
 		.color {
 			background: var(--bg);
-			border: var(--border);
+			border: var(--story-border);
 			border-radius: 50%;
 			height: 1rem;
 			left: 0;
@@ -268,8 +268,8 @@ create('story', {
 		}
 		button {
 			background: transparent;
-			border: var(--border);
-			border-radius: var(--border-radius);
+			border: var(--story-border);
+			border-radius: var(--story-border-radius);
 			padding: 0.5rem;
 		}
 		button:hover {

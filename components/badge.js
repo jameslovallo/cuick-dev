@@ -37,7 +37,7 @@ create('badge', {
 			min-width: 1.5rem;
 		}
 		.ribbon {
-			border-radius: var(--badge-border-radius, 0);
+			border-radius: var(--badge-border-radius);
 			border-bottom-right-radius: 0;
 			top: 0.5rem;
 		}
