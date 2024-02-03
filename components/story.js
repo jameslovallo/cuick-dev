@@ -181,7 +181,7 @@ create('story', {
 													class="flex"
 													style="justify-content: space-between;"
 												>
-													${slot[0]}<span>${slot[1]}</span>
+													${slot[0]}<code>${slot[1]}</code>
 												</div>
 											</li>
 										`
@@ -240,6 +240,8 @@ create('story', {
 		.flex {
 			align-items: center;
 			display: flex;
+			flex-flow: row wrap;
+			gap: 0.5rem;
 			justify-content: space-between;
 			position: relative;
 		}
@@ -265,6 +267,9 @@ create('story', {
 			gap: 0.5rem;
 			margin: 0;
 			padding-left: 1rem;
+		}
+		code {
+			font-size: 0.75rem;
 		}
 		button {
 			background: transparent;

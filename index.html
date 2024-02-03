@@ -1,29 +1,22 @@
-<h2>Badge</h2>
-<c-story>
-	<c-badge style="--badge-bg: #d00; --badge-border-radius: 0.75rem"></c-badge>
-</c-story>
-
-<h2>Ribbon</h2>
-<c-story>
-	<c-badge variant="ribbon" label="ribbon"></c-badge>
-</c-story>
+<title>Cuick Playground</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="/docs/src/style.css" />
 
 <script type="module">
 	import '/components/story.js'
 	import '/components/badge.js'
 </script>
 
-<style>
-	* {
-		box-sizing: border-box;
-	}
-	:root {
-		color-scheme: light dark;
-		font-family: sans-serif;
-	}
-	body {
-		margin: auto;
-		max-width: 70ch;
-		padding: 2rem;
-	}
-</style>
+<main>
+	<h1>Cuick Playground</h1>
+
+	<h2>Badge</h2>
+	<c-story>
+		<c-badge style="--badge-bg: #d00; --badge-border-radius: 0.75rem"></c-badge>
+	</c-story>
+
+	<h2>Ribbon</h2>
+	<c-story>
+		<c-badge variant="ribbon" label="ribbon"></c-badge>
+	</c-story>
+</main>
