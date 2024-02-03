@@ -206,7 +206,7 @@ create('story', {
 	styles: css`
 		:host {
 			--story-border: 1px solid rgba(150, 150, 150, 0.5);
-			--story-border-radius: 0;
+			--story-border-radius: 0.25rem;
 			border: var(--story-border);
 			border-radius: var(--story-border-radius);
 			display: grid;
