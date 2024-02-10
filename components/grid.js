@@ -9,7 +9,7 @@ create('grid', {
 	lg: 1024,
 	xl: 1280,
 	xxl: 1536,
-	template({ columns, gap, sm, md, lg, xl, xxl }) {
+	template({ columns, gap, alignment, sm, md, lg, xl, xxl }) {
 		const bps = { xs: 0, sm, md, lg, xl, xxl }
 		return html`
 			<slot />
