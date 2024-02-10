@@ -1,13 +1,11 @@
 import { create, css, html } from '../index.js'
 
 create('toolbar', {
-	template() {
-		return html`
-			<slot name="left" />
-			<slot name="center" />
-			<slot name="right" />
-		`
-	},
+	template: () => html`
+		<slot name="left" />
+		<slot name="center" />
+		<slot name="right" />
+	`,
 	styles: css`
 		:host {
 			align-items: center;

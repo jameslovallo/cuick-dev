@@ -1,4 +1,4 @@
-import { create } from '../index.js'
+import { create, html } from '../index.js'
 
 create('grid', {
 	columns: 12,
