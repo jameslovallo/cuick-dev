@@ -59,7 +59,7 @@ create('badge', {
 			width: 0.5rem;
 		}
 		[part='placeholder'] {
-			background: #555;
+			background: rgba(155, 155, 155, 0.5);
 			height: 4rem;
 			width: 12rem;
 		}
