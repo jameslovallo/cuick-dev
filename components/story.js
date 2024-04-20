@@ -211,7 +211,7 @@ create('story', {
 			border-radius: var(--story-border-radius);
 			display: grid;
 			gap: 1rem;
-			padding: 1rem 1rem 0;
+			padding: 1rem;
 		}
 		slot {
 			display: block;
