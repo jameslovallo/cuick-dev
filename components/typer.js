@@ -1,13 +1,12 @@
 import { create, html } from '../index.js'
 
 create('typer', {
-	sentence: 'This is ',
 	words: 'string 1, string 2, string 3',
 	$currentWord: '',
 	letterDelay: 100,
 	backDelay: 1000,
 	nextDelay: 500,
-	setup({ sentence, words, $currentWord, letterDelay, backDelay, nextDelay }) {
+	setup({ words, $currentWord, letterDelay, backDelay, nextDelay }) {
 		words = words.split(', ')
 		const numWords = words.length
 		let wordIndex = 0
@@ -48,7 +47,7 @@ create('typer', {
 	},
 	template: ({ sentence, $currentWord }) => {
 		return html`
-			<span>${sentence}</span>
+			<slot />
 			<span>${$currentWord.value}</span>
 		`
 	},
