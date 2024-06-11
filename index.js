@@ -61,7 +61,7 @@ export const create = (name, options) => {
 							if (o.startsWith('_')) {
 								type = 'el'
 								dv = document.querySelector(dv)
-								dv.addEventListener('updated', this.connectedCallback)
+								dv.addEventListener('update', this.connectedCallback)
 							}
 							Object.defineProperty(this, o, {
 								get: () => {
@@ -92,6 +92,7 @@ export const create = (name, options) => {
 					this.setup = options.setup
 					this.setup(this)
 				}
+				this.dispatchEvent(new Event('setup'))
 			}
 			connectedCallback() {
 				if (this.template) {
@@ -104,11 +105,12 @@ export const create = (name, options) => {
 							</style>
 						`
 					)
+					this.dispatchEvent(new Event('render'))
 				}
 			}
 			attributeChangedCallback() {
 				this.connectedCallback()
-				this.dispatchEvent(new Event('updated'))
+				this.dispatchEvent(new Event('update'))
 			}
 		}
 	)

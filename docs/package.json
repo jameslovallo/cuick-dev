@@ -1,6 +1,0 @@
-{
-	"name": "cuick-docs",
-	"scripts": {
-		"Dev": "npx @11ty/eleventy --serve --incremental"
-	}
-}
