@@ -1,20 +1,52 @@
-<title>Cuick Playground</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" href="/docs/src/style.css" />
+<head>
+	<title>Cuick Playground</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+		body {
+			font-family: sans-serif;
+			margin: 0;
+		}
+		main {
+			margin: 0 auto;
+			max-width: 768px;
+			padding: 1rem;
+		}
+	</style>
+	<script type="module">
+		import '/components/carousel.js'
+		import '/components/story.js'
+	</script>
+</head>
 
-<script type="module">
-	import '/components/compare.js'
-	import '/components/story.js'
-</script>
+<body>
+	<main>
+		<h1>Cuick Playground</h1>
 
-<main>
-	<h1>Cuick Playground</h1>
+		<h2>Carousel</h2>
+		<c-story>
+			<c-carousel>
+				<img src="//picsum.photos/seed/1/400/300" />
+				<img src="//picsum.photos/seed/2/400/300" />
+				<img src="//picsum.photos/seed/3/400/300" />
+				<img src="//picsum.photos/seed/4/400/300" />
+				<img src="//picsum.photos/seed/5/400/300" />
+				<img src="//picsum.photos/seed/6/400/300" />
+				<img src="//picsum.photos/seed/7/400/300" />
+				<img src="//picsum.photos/seed/8/400/300" />
+				<img src="//picsum.photos/seed/9/400/300" />
+				<img src="//picsum.photos/seed/10/400/300" />
+				<img src="//picsum.photos/seed/11/400/300" />
+				<img src="//picsum.photos/seed/12/400/300" />
+			</c-carousel>
+		</c-story>
+	</main>
 
-	<h2>compare</h2>
-	<c-story>
-		<c-compare>
-			<img src="./before-0-min.jpeg" />
-			<img src="./after-0-min.jpeg" />
-		</c-compare>
-	</c-story>
-</main>
+	<style>
+		img {
+			aspect-ratio: 4/3;
+		}
+	</style>
+</body>

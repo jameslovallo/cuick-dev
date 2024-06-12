@@ -13,9 +13,7 @@ export default create('compare', {
 					min="0"
 					max="100"
 					step=".5"
-					@input=${(e) => {
-						this.percent = e.target.value
-					}}
+					@input=${(e) => (this.percent = e.target.value)}
 				/>
 				<button aria-hidden="true">
 					<svg viewBox="0 0 24 24">
