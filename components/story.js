@@ -115,7 +115,9 @@ create('story', {
 											</div>
 									  `
 									: html`
-											<label class="flex">${r[0]}${input(r[0], r[1])}</label>
+											<label class="flex">
+												<span>${r[0]}</span>${input(r[0], r[1])}
+											</label>
 									  `
 							})}
 						</fieldset>
@@ -134,37 +136,35 @@ create('story', {
 								${cssVars.map(
 									(v) => html`
 										<label class="flex">
-											${v[0]}
-											<div class="flex">
-												${colors.filter((c) => v[1].toLowerCase().startsWith(c))
-													.length
-													? html`
-															<input
-																type="color"
-																@input=${(e) => {
-																	child.style.setProperty(v[0], e.target.value)
-																	e.target.nextElementSibling.style.setProperty(
-																		'--bg',
-																		e.target.value
-																	)
-																	e.target.parentElement.lastElementChild.value =
-																		e.target.value
-																}}
-															/>
-															<div class="color" style=${`--bg: ${v[1]}`} />
-													  `
-													: ''}
-												<input
-													value=${v[1]}
-													@input=${(e) => {
-														child.style.setProperty(v[0], e.target.value)
-														e.target.previousElementSibling.style.setProperty(
-															'--bg',
-															e.target.value
-														)
-													}}
-												/>
-											</div>
+											<span>${v[0]}</span>
+											${colors.filter((c) => v[1].toLowerCase().startsWith(c))
+												.length
+												? html`
+														<input
+															type="color"
+															@input=${(e) => {
+																child.style.setProperty(v[0], e.target.value)
+																e.target.nextElementSibling.style.setProperty(
+																	'--bg',
+																	e.target.value
+																)
+																e.target.parentElement.lastElementChild.value =
+																	e.target.value
+															}}
+														/>
+														<div class="color" style=${`--bg: ${v[1]}`} />
+												  `
+												: ''}
+											<input
+												value=${v[1]}
+												@input=${(e) => {
+													child.style.setProperty(v[0], e.target.value)
+													e.target.previousElementSibling.style.setProperty(
+														'--bg',
+														e.target.value
+													)
+												}}
+											/>
 										</label>
 									`
 								)}
@@ -197,24 +197,30 @@ create('story', {
 	styles: css`
 		:host {
 			--story-border: 1px solid rgba(150, 150, 150, 0.5);
-			--story-border-radius: 0.25rem;
-			border: var(--story-border);
+			--story-border-radius: 0.5rem;
 			border-radius: var(--story-border-radius);
-			display: grid;
-			gap: 1rem;
-			padding: 1rem;
-		}
-		slot {
 			display: block;
 		}
+		slot {
+			border-top-left-radius: var(--story-border-radius);
+			border-top-right-radius: var(--story-border-radius);
+			box-shadow: inset 0 0 4px #0008;
+			display: block;
+			padding: 1rem;
+		}
 		form {
+			border: var(--story-border);
+			border-bottom-left-radius: var(--story-border-radius);
+			border-bottom-right-radius: var(--story-border-radius);
+			border-top: none;
 			display: grid;
 			gap: 1rem;
 			margin: 0;
+			padding: 1rem;
 		}
 		fieldset {
 			border: var(--story-border);
-			border-radius: var(--story-border-radius);
+			border-radius: calc(var(--story-border-radius) / 2);
 			display: grid;
 			gap: 1rem;
 			margin: 0;
@@ -223,24 +229,39 @@ create('story', {
 		legend {
 			font-size: 14px;
 			font-weight: bold;
-			padding: 0 0.5rem;
+			margin: -0.5rem -0.25rem;
+			padding: 0 0.25rem;
 		}
 		input:not([type='checkbox']):not([type='color']),
 		select {
 			background: transparent;
 			border: var(--story-border);
-			border-radius: var(--story-border-radius);
+			border-radius: calc(var(--story-border-radius) / 2);
+			border-bottom-left-radius: 0;
 			font-size: 14px;
 			padding: 0.25rem;
 			width: 150px;
+
+			&:focus {
+				outline: none;
+			}
 		}
 		.flex {
 			align-items: center;
 			display: flex;
 			flex-flow: row wrap;
-			gap: 0.5rem;
 			justify-content: space-between;
 			position: relative;
+
+			&:has(:focus) {
+				--story-border: 1px solid var(--primary-bg);
+			}
+		}
+		.flex span {
+			border-bottom: var(--story-border);
+			display: block;
+			flex-grow: 1;
+			height: 100%;
 		}
 		[type='color'] {
 			height: 1rem;
@@ -252,7 +273,7 @@ create('story', {
 			border: var(--story-border);
 			border-radius: 50%;
 			height: 1rem;
-			left: 0;
+			right: 158px;
 			pointer-events: none;
 			position: absolute;
 			top: calc(50% - 0.5rem);
@@ -270,8 +291,9 @@ create('story', {
 		button {
 			background: transparent;
 			border: var(--story-border);
-			border-radius: var(--story-border-radius);
-			padding: 0.5rem;
+			border-radius: calc(var(--story-border-radius) / 2);
+			padding: 0.5rem 1rem;
+			width: max-content;
 		}
 		button:hover {
 			background: var(--primary-bg);

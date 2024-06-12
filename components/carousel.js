@@ -78,14 +78,16 @@ create('carousel', {
 	styles: css`
 		:host {
 			--gap: 0.5rem;
+			display: block;
 		}
 		ul {
 			display: flex;
 			list-style: none;
+			margin: 0;
 			padding: 0;
 		}
 		[part='track'] {
-			margin: 0 calc(var(--gap) / -2);
+			gap: var(--gap);
 			overflow-x: scroll;
 			scroll-behavior: smooth;
 			scroll-snap-type: x mandatory;
@@ -96,8 +98,9 @@ create('carousel', {
 		}
 		[part='slide'] {
 			display: block;
-			min-width: calc(100% / var(--slides));
-			padding: 0 calc(var(--gap) / 2);
+			min-width: calc(
+				(100% - (var(--slides) - 1) * var(--gap)) / var(--slides)
+			);
 			scroll-snap-align: start;
 		}
 		[part='slide'] ::slotted(*) {
