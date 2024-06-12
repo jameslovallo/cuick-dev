@@ -46,10 +46,12 @@ create('story', {
 						this.props.push([k, childConfig[k]])
 					}
 				})
-			const slots = this.child.shadowRoot.querySelectorAll('slot')
-			;[...slots].forEach((slot) => {
-				this.slots.push([slot.name || 'default', slot.innerHTML])
-			})
+			const slots = String(childConfig.template).match(/slot name="[\w-]+/gm)
+			if (slots) {
+				slots.forEach((s) => {
+					this.slots.push(s.split('"')[1])
+				})
+			}
 			if (childConfig.styles) {
 				const host = childConfig.styles[0].match(/:host {[\s\S]*?}/gm)[0]
 				if (host) {
@@ -174,18 +176,7 @@ create('story', {
 							<fieldset>
 								<legend>Slots</legend>
 								<ol>
-									${slots.map(
-										(slot) => html`
-											<li>
-												<div
-													class="flex"
-													style="justify-content: space-between;"
-												>
-													${slot[0]}<code>${slot[1]}</code>
-												</div>
-											</li>
-										`
-									)}
+									${slots.map((slot) => html`<li>${slot}</li>`)}
 								</ol>
 							</fieldset>
 					  `

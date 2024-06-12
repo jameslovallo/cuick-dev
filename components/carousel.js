@@ -1,13 +1,9 @@
 import { create, css, html } from '../index.js'
 
-const rMq = (rString) => {
-	return rString
-		.split(', ')
-		.map((r) => r.split(': '))
-		.map(
-			(r) => `@media (min-width: ${r[0]}px) { :host { --slides: ${r[1]}; } }`
-		)
-		.join('')
+const rMq = (s) => {
+	const mQ = ([w, n]) => `@media(min-width:${w}px){:host{--slides: ${n};}}`
+	const vArr = s.split(', ').map((r) => r.split(': '))
+	return vArr.map((r) => mQ(r)).join('')
 }
 
 const mdi = (path) => html`<svg viewBox="0 0 24 24"><path d=${path} /></svg>`
@@ -16,11 +12,11 @@ const right = 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z'
 
 create('carousel', {
 	autoplay: 0,
-	responsive: '0: 1, 768: 2, 1024: 3',
+	responsive: '0: 1, 480: 2, 720: 3',
 	setup({ children, shadowRoot }) {
 		this.slides = [...children].filter((c) => !c.slot)
-		this.slides.forEach((s, i) => (s.slot = i))
 		this.track = () => shadowRoot.querySelector('[part="track"]')
+		this.indicators = () => shadowRoot.querySelectorAll('[part="indicator"]')
 		this.prev = () => {
 			const { scrollLeft, scrollWidth } = this.track()
 			scrollLeft === 0
@@ -33,9 +29,8 @@ create('carousel', {
 				? this.track().scrollTo(0, 0)
 				: this.track().scrollBy(1, 0)
 		}
-		this.goTo = (i) => () => this.track().scrollTo(this.slides[i].offsetLeft, 0)
+		this.goTo = (s) => () => this.track().scrollTo(s.offsetLeft, 0)
 		this.addEventListener('render', () => {
-			this.indicators = () => shadowRoot.querySelectorAll('[part="indicator"]')
 			const observer = new IntersectionObserver((entries) => {
 				entries.forEach((entry) => {
 					const index = this.slides.indexOf(entry.target)
@@ -45,7 +40,7 @@ create('carousel', {
 					} else indicator.classList.remove('active')
 				})
 			})
-			this.slides.forEach((s, i) => observer.observe(s, i))
+			this.slides.forEach((s) => observer.observe(s))
 		})
 		if (this.autoplay) {
 			this.addEventListener('mouseenter', () => (this.pause = true))
@@ -59,7 +54,10 @@ create('carousel', {
 				${rMq(responsive)}
 			</style>
 			<ul part="track">
-				${slides.map((s, i) => html`<li part="slide"><slot name=${i} /></li>`)}
+				${slides.map((s, i) => {
+					s.slot = i
+					return html`<li part="slide"><slot name=${i} /></li>`
+				})}
 			</ul>
 			<div part="controls">
 				<button part="prev" @click=${prev}>
@@ -68,7 +66,7 @@ create('carousel', {
 				<div part="indicators">
 					${slides.map(
 						(s, i) =>
-							html`<button part="indicator" @click=${goTo(i)}>${i + 1}</button>`
+							html`<button part="indicator" @click=${goTo(s)}>${i + 1}</button>`
 					)}
 				</div>
 				<button part="next" @click=${next}>
