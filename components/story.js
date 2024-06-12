@@ -210,6 +210,7 @@ create('story', {
 		form {
 			display: grid;
 			gap: 1rem;
+			margin: 0;
 		}
 		fieldset {
 			border: var(--story-border);
