@@ -32,12 +32,12 @@ create('carousel', {
 		this.goTo = (s) => () => this.track().scrollTo(s.offsetLeft, 0)
 		this.addEventListener('render', () => {
 			const observer = new IntersectionObserver((entries) => {
-				entries.forEach((entry) => {
-					const index = this.slides.indexOf(entry.target)
+				entries.forEach(({ target: slide, isIntersecting }) => {
+					const index = this.slides.indexOf(slide)
 					const indicator = this.indicators()[index]
-					if (entry.isIntersecting) {
-						indicator.classList.add('active')
-					} else indicator.classList.remove('active')
+					const func = isIntersecting ? 'add' : 'remove'
+					slide.classList[func]('active')
+					indicator.classList[func]('active')
 				})
 			})
 			this.slides.forEach((s) => observer.observe(s))
@@ -87,6 +87,11 @@ create('carousel', {
 			padding: 0;
 		}
 		[part='track'] {
+			--carousel-width: 100%;
+			--visible-gaps: calc(var(--slides) - 1);
+			--gap-space: calc(var(--gap) * var(--visible-gaps));
+			--available-space: calc(var(--carousel-width) - var(--gap-space));
+			--slide-width: calc(var(--available-space) / var(--slides));
 			gap: var(--gap);
 			overflow-x: scroll;
 			scroll-behavior: smooth;
@@ -98,9 +103,7 @@ create('carousel', {
 		}
 		[part='slide'] {
 			display: block;
-			min-width: calc(
-				(100% - (var(--slides) - 1) * var(--gap)) / var(--slides)
-			);
+			min-width: var(--slide-width);
 			scroll-snap-align: start;
 		}
 		[part='slide'] ::slotted(*) {

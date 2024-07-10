@@ -292,6 +292,7 @@ create('story', {
 			background: transparent;
 			border: var(--story-border);
 			border-radius: calc(var(--story-border-radius) / 2);
+			font-size: 14px;
 			padding: 0.5rem 1rem;
 			width: max-content;
 		}

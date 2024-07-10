@@ -94,12 +94,13 @@ export const create = (name, options) => {
 				}
 				this.dispatchEvent(new Event('setup'))
 			}
-			connectedCallback() {
-				if (this.template) {
+			async connectedCallback() {
+				const template = await this.template
+				if (template) {
 					render(
 						this.shadowRoot,
 						() => html`
-							${this.template(this)}
+							${template(this)}
 							<style>
 								${theme + (this.styles ? this.styles : '')}
 							</style>
