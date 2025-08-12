@@ -1,80 +1,80 @@
-import { create, css, handleAttr, html, reserved } from '../index.js'
-import colors from './utils/colorNames.js'
+import { create, css, handleAttr, html, reserved } from "../index.js";
+import colors from "./utils/colorNames.js";
 
 const getType = (v) => {
-	let type
+	let type;
 	switch (typeof v) {
-		case 'string':
-			type = 'string'
-			break
-		case 'number':
-			type = 'number'
-			break
-		case 'boolean':
-			type = 'checkbox'
-			break
+		case "string":
+			type = "string";
+			break;
+		case "number":
+			type = "number";
+			break;
+		case "boolean":
+			type = "checkbox";
+			break;
 	}
-	return type
-}
+	return type;
+};
 
 function waitFor(conditionFunction) {
 	const poll = (resolve) => {
-		if (conditionFunction()) resolve(conditionFunction())
-		else setTimeout(() => poll(resolve), 400)
-	}
-	return new Promise(poll)
+		if (conditionFunction()) resolve(conditionFunction());
+		else setTimeout(() => poll(resolve), 400);
+	};
+	return new Promise(poll);
 }
 
-create('story', {
-	$buttonText: 'Copy Element',
+create("story", {
+	$buttonText: "Copy Element",
 	setup() {
-		this.props = []
-		this.watched = []
-		this.signals = []
-		this.slots = []
-		this.cssVars = []
-		this.child = this.children[0]
+		this.props = [];
+		this.watched = [];
+		this.signals = [];
+		this.slots = [];
+		this.cssVars = [];
+		this.child = this.children[0];
 		waitFor(() => this.child.config).then((childConfig) => {
 			Object.keys(childConfig)
 				.filter((k) => !reserved.includes(k))
 				.map((k) => {
-					if (k.startsWith('$')) {
-						this.signals.push([k, childConfig[k]])
-					} else if (k.startsWith('_')) {
-						this.watched.push([k, childConfig[k]])
+					if (k.startsWith("$")) {
+						this.signals.push([k, childConfig[k]]);
+					} else if (k.startsWith("_")) {
+						this.watched.push([k, childConfig[k]]);
 					} else {
-						this.props.push([k, childConfig[k]])
+						this.props.push([k, childConfig[k]]);
 					}
-				})
-			const slots = String(childConfig.template).match(/slot name="[\w-]+/gm)
+				});
+			const slots = String(childConfig.template).match(/slot name="[\w-]+/gm);
 			if (slots) {
 				slots.forEach((s) => {
-					this.slots.push(s.split('"')[1])
-				})
+					this.slots.push(s.split('"')[1]);
+				});
 			}
 			if (childConfig.styles) {
-				const host = childConfig.styles[0].match(/:host {[\s\S]*?}/gm)[0]
+				const host = childConfig.styles[0].match(/:host {[\s\S]*?}/gm)[0];
 				if (host) {
-					const cssVars = host.match(/--[\w-]+:/gm)
+					const cssVars = host.match(/--[\w-]+:/gm);
 					if (cssVars) {
 						cssVars.forEach((v) => {
-							v = v.replace(':', '')
+							v = v.replace(":", "");
 							this.cssVars.push([
 								v,
 								getComputedStyle(this.child).getPropertyValue(v),
-							])
-						})
+							]);
+						});
 					}
 				}
 			}
-			this.connectedCallback()
-		})
+			this.connectedCallback();
+		});
 	},
 	template({ child, props, watched, signals, slots, cssVars, $buttonText }) {
 		const input = (key, value) => {
-			const type = getType(value)
+			const type = getType(value);
 			const assignedValue =
-				type === 'checkbox' ? child.hasAttribute(key) : child.getAttribute(key)
+				type === "checkbox" ? child.hasAttribute(key) : child.getAttribute(key);
 			return Array.isArray(value)
 				? html`
 						<select @change=${(e) => child.setAttribute(key, e.target.value)}>
@@ -90,18 +90,18 @@ create('story', {
 				: html`
 						<input
 							type=${type}
-							?checked=${type === 'checkbox' && (assignedValue || value)}
-							value=${type !== 'checkbox' ? assignedValue || value : null}
+							?checked=${type === "checkbox" && (assignedValue || value)}
+							value=${type !== "checkbox" ? assignedValue || value : null}
 							@input=${(e) =>
 								handleAttr({
 									el: child,
-									type: type === 'checkbox' ? 'boolean' : type,
+									type: type === "checkbox" ? "boolean" : type,
 									attr: key,
 									value: e.target.checked || e.target.value,
 								})}
 						/>
-				  `
-		}
+				  `;
+		};
 		const fieldset = (category, label) => {
 			return category.length
 				? html`
@@ -118,17 +118,17 @@ create('story', {
 											<label class="flex">
 												<span>${r[0]}</span>${input(r[0], r[1])}
 											</label>
-									  `
+									  `;
 							})}
 						</fieldset>
 				  `
-				: ''
-		}
+				: "";
+		};
 		return html`
 			<slot />
 			<form>
-				${fieldset(props, 'Props')} ${fieldset(signals, 'Signals', true)}
-				${fieldset(watched, 'Watched Elements')}
+				${fieldset(props, "Props")} ${fieldset(signals, "Signals", true)}
+				${fieldset(watched, "Watched Elements")}
 				${cssVars.length
 					? html`
 							<fieldset>
@@ -143,26 +143,26 @@ create('story', {
 														<input
 															type="color"
 															@input=${(e) => {
-																child.style.setProperty(v[0], e.target.value)
+																child.style.setProperty(v[0], e.target.value);
 																e.target.nextElementSibling.style.setProperty(
-																	'--bg',
+																	"--bg",
 																	e.target.value
-																)
+																);
 																e.target.parentElement.lastElementChild.value =
-																	e.target.value
+																	e.target.value;
 															}}
 														/>
 														<div class="color" style=${`--bg: ${v[1]}`} />
 												  `
-												: ''}
+												: ""}
 											<input
 												value=${v[1]}
 												@input=${(e) => {
-													child.style.setProperty(v[0], e.target.value)
+													child.style.setProperty(v[0], e.target.value);
 													e.target.previousElementSibling.style.setProperty(
-														'--bg',
+														"--bg",
 														e.target.value
-													)
+													);
 												}}
 											/>
 										</label>
@@ -170,7 +170,7 @@ create('story', {
 								)}
 							</fieldset>
 					  `
-					: ''}
+					: ""}
 				${slots.length
 					? html`
 							<fieldset>
@@ -180,19 +180,19 @@ create('story', {
 								</ol>
 							</fieldset>
 					  `
-					: ''}
+					: ""}
 				<button
 					@click=${(e) => {
-						e.preventDefault()
-						navigator.clipboard.writeText(child.outerHTML)
-						$buttonText.value = 'Copied!'
-						setTimeout(() => ($buttonText.value = 'Copy Element'), 2000)
+						e.preventDefault();
+						navigator.clipboard.writeText(child.outerHTML);
+						$buttonText.value = "Copied!";
+						setTimeout(() => ($buttonText.value = "Copy Element"), 2000);
 					}}
 				>
 					${$buttonText.value}
 				</button>
 			</form>
-		`
+		`;
 	},
 	styles: css`
 		:host {
@@ -202,9 +202,9 @@ create('story', {
 			display: block;
 		}
 		slot {
+			border: var(--story-border);
 			border-top-left-radius: var(--story-border-radius);
 			border-top-right-radius: var(--story-border-radius);
-			box-shadow: inset 0 0 4px #0008;
 			display: block;
 			padding: 1rem;
 		}
@@ -232,7 +232,7 @@ create('story', {
 			margin: -0.5rem -0.25rem;
 			padding: 0 0.25rem;
 		}
-		input:not([type='checkbox']):not([type='color']),
+		input:not([type="checkbox"]):not([type="color"]),
 		select {
 			background: transparent;
 			border: var(--story-border);
@@ -263,7 +263,7 @@ create('story', {
 			flex-grow: 1;
 			height: 100%;
 		}
-		[type='color'] {
+		[type="color"] {
 			height: 1rem;
 			opacity: 0;
 			width: 1rem;
@@ -301,4 +301,4 @@ create('story', {
 			color: var(--primary-fg);
 		}
 	`,
-})
+});

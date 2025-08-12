@@ -1,5 +1,10 @@
-import { html, render, signal, svg } from '//unpkg.com/uhtml/preactive'
-export { html, svg }
+import {
+	html,
+	render,
+	signal,
+	svg,
+} from "https://unpkg.com/uhtml@4.7.1/preactive.js";
+export { html, svg };
 
 const theme = `
 	*, *::before, *::after {
@@ -25,56 +30,56 @@ const theme = `
 	p, h1, h2, h3, h4, h5, h6 {
 		overflow-wrap: break-word;
 	}
-`
+`;
 
-export const css = (v) => v
-export const reserved = ['setup', 'template', 'styles']
+export const css = (v) => v;
+export const reserved = ["setup", "template", "styles"];
 
 export const handleAttr = (options) => {
-	const { el, type, attr, value } = options
-	if (type === 'boolean') {
-		value === true ? el.setAttribute(attr, '') : el.removeAttribute(attr)
-	} else el.setAttribute(attr, value)
-}
+	const { el, type, attr, value } = options;
+	if (type === "boolean") {
+		value === true ? el.setAttribute(attr, "") : el.removeAttribute(attr);
+	} else el.setAttribute(attr, value);
+};
 
 export const create = (name, options) => {
 	customElements.define(
-		name.includes('-') ? name : 'c-' + name,
+		name.includes("-") ? name : "c-" + name,
 		class extends HTMLElement {
 			static observedAttributes = Object.keys(options).filter(
-				(k) => !reserved.includes(k) && !k.startsWith('$')
-			)
+				(k) => !reserved.includes(k) && !k.startsWith("$")
+			);
 			constructor() {
-				super().attachShadow({ mode: 'open' })
-				this.template = options.template
-				this.styles = options.styles
-				this.config = options
+				super().attachShadow({ mode: "open" });
+				this.template = options.template;
+				this.styles = options.styles;
+				this.config = options;
 				Object.keys(options)
 					.filter((o) => !reserved.includes(o))
 					.forEach((o) => {
-						if (o.startsWith('$')) {
-							this[o] = signal(options[o])
+						if (o.startsWith("$")) {
+							this[o] = signal(options[o]);
 						} else {
-							let dv = options[o]
-							if (Array.isArray(dv)) dv = dv[0]
-							let type = typeof dv
-							if (o.startsWith('_')) {
-								type = 'el'
-								dv = document.querySelector(dv)
-								dv.addEventListener('update', this.connectedCallback)
+							let dv = options[o];
+							if (Array.isArray(dv)) dv = dv[0];
+							let type = typeof dv;
+							if (o.startsWith("_")) {
+								type = "el";
+								dv = document.querySelector(dv);
+								dv.addEventListener("update", this.connectedCallback);
 							}
 							Object.defineProperty(this, o, {
 								get: () => {
-									const v = this.getAttribute(o) || dv
+									const v = this.getAttribute(o) || dv;
 									switch (type) {
-										case 'el':
-											return dv
-										case 'string':
-											return v
-										case 'number':
-											return Number(v)
-										case 'boolean':
-											return this.hasAttribute(o)
+										case "el":
+											return dv;
+										case "string":
+											return v;
+										case "number":
+											return Number(v);
+										case "boolean":
+											return this.hasAttribute(o);
 									}
 								},
 								set: (v) => {
@@ -83,37 +88,37 @@ export const create = (name, options) => {
 										type,
 										attr: o,
 										value: v,
-									})
+									});
 								},
-							})
+							});
 						}
-					})
+					});
 				if (options.setup) {
-					this.setup = options.setup
-					this.setup(this)
+					this.setup = options.setup;
+					this.setup(this);
 				}
-				this.dispatchEvent(new Event('setup'))
+				this.dispatchEvent(new Event("setup"));
 			}
 			async connectedCallback() {
 				if (this.template) {
-					const template = await this.template(this)
+					const template = await this.template(this);
 					render(
 						this.shadowRoot,
 						() =>
 							html`
 								${template}
 								<style>
-									${theme + (this.styles ? this.styles : '')}
+									${theme + (this.styles ? this.styles : "")}
 								</style>
 							`
-					)
-					this.dispatchEvent(new Event('render'))
+					);
+					this.dispatchEvent(new Event("render"));
 				}
 			}
 			attributeChangedCallback() {
-				this.connectedCallback()
-				this.dispatchEvent(new Event('update'))
+				this.connectedCallback();
+				this.dispatchEvent(new Event("update"));
 			}
 		}
-	)
-}
+	);
+};
